@@ -14,20 +14,21 @@ void test1(){
     for(int i=0; i < keys.size(); i++){
         root->insert(keys[i]);
     }
-    cout << root->search("hola") << endl;
-    cout << root->search("hol") << endl;
-    cout << root->search("agf") << endl;
+    root->search("hola");
+    root->search("hipo");
+    root->search("hol");
+    root->search("agf");
 
 }
 
 void testIndex(){
     auto rootTrie = new TrieNode;
     rootTrie->indexer();
-    cout << rootTrie->search("animations-10-assignment-problem") << '\n';
-    cout << rootTrie->search("animations-10-assignment-problex") << '\n';
+    rootTrie->search("animations-10-assignment-problem");
+    rootTrie->search("animations-10-assignment-prob");
 }
 
 int main(){
-    //test1();
+    // test1();
     testIndex();
 }

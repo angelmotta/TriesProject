@@ -9,13 +9,10 @@
 using namespace std;
 
 const int SIZE = 256; 
-
+const string extensionFile = ".mp4";
 class TrieNode{
     vector <TrieNode*> nodos;
-    //Node* nodos[SIZE];    
     bool isEnd = false; 
-    /*int childnum;*/
-    //int buffsize;
     vector<unsigned long> posDisk;
 
 public:
@@ -35,33 +32,44 @@ public:
         temp->posDisk.push_back(position);
     }
     
-    bool search(string key){
-       TrieNode* temp = this;
-       for(int i = 0; i < key.size(); i++){
-           int pos = (int)key[i];
-           if(!temp->nodos[pos])
-              return false;
-           temp = temp->nodos[pos]; 
-       }
-
-       bool found = temp!=nullptr && temp->isEnd;
-       if (found){
-           string buf;
-            fstream fileList("list.txt");
-           for(int i = 0; i < temp->posDisk.size(); i++){
-               fileList.seekg(temp->posDisk[i]);
-               getline(fileList, buf);
-               cout << buf << endl;
-           }
-           fileList.close();
-           return true;
-       } 
-       return false;
+    TrieNode* searchUtil(string key){
+        TrieNode* temp = this;
+        for(int i = 0; i < key.size(); i++){
+            int pos = (int)key[i];
+            if(!temp->nodos[pos]){
+                return nullptr;
+            }
+            temp = temp->nodos[pos]; 
+        }
+        return temp;
     }
-    /*void remove(){
 
-    } */
+    void search(string key){
+        cout << "** Search: '" << key << "' **\n";
+        auto temp = searchUtil(key);
+        if (temp != nullptr && temp->isEnd){
+            int nroVeces = temp->posDisk.size();
+            string printVeces = (nroVeces > 1) ? "veces.\n" : " vez.\n";
+            cout << "a) Archivo repetido: " <<  nroVeces <<  printVeces;
+            string buf;
+            fstream fileList("list.txt");
+            cout << "b) Ruta de archivos encontrados: \n";
+            for(int i = 0; i < temp->posDisk.size(); i++){
+                fileList.seekg(temp->posDisk[i]);
+                getline(fileList, buf);
+                cout << buf << endl;
+                }
+                fileList.close();
+            }
+            else{
+                cout << "Not Found!\n";
+            } 
+    }
     
+    void startWith(string partialKey){
+        // TODO
+    }
+
     void indexer(){
         cout << "** Indexer **\n";
         //system("find /Users/angelinux/Data -type f -name \"*.mp4\" > list.txt");
@@ -89,22 +97,4 @@ public:
 
 };
 
-
-/*
-class Node{
-    Node* nodos[SIZE];
-    
-public:
-    
-}; */
-/*
-class Fnode:public Node{
-    int buffSize;
-    int reps;
-
-    private: 
-
-};
-
-*/
 #endif

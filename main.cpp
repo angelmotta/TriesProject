@@ -9,7 +9,9 @@ void test1(){
     keys.push_back("hipo");
     keys.push_back("amigo");
     keys.push_back("amistad");
-
+    keys.push_back("angel");
+    keys.push_back("angelica");
+    keys.push_back("antonio");
     auto root = new TrieNode();
     for(int i=0; i < keys.size(); i++){
         root->insert(keys[i]);
@@ -19,6 +21,10 @@ void test1(){
     root->search("hol");
     root->search("agf");
 
+    // Start with
+    root->startWith("ami");
+    root->startWith("ang");
+    root->startWith("an");
 }
 
 void testIndex(){
@@ -29,6 +35,6 @@ void testIndex(){
 }
 
 int main(){
-    // test1();
-    testIndex();
+    test1();
+    // testIndex();
 }

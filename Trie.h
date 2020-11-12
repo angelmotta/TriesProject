@@ -14,7 +14,7 @@ class TrieNode{
     vector <TrieNode*> nodos;
     bool isEnd = false; 
     vector<unsigned long> posDisk;
-
+    vector<string> resultStartWith;
 public:
     TrieNode(): nodos(SIZE,nullptr){};
 
@@ -66,8 +66,37 @@ public:
             } 
     }
     
+    void startWithUtil(TrieNode* tnode, int i, string result){
+        result += (char) i;
+        if(tnode->isEnd){
+            resultStartWith.push_back(result);
+        }
+        for(int i = 0; i < tnode->nodos.size(); i++){
+            if(tnode->nodos[i]){
+                startWithUtil(tnode->nodos[i], i, result);
+            }
+        }
+    }
+
     void startWith(string partialKey){
-        // TODO
+        cout << "** Search keywords start with: " << partialKey << " **\n";
+        auto temp = searchUtil(partialKey);
+        if(temp == nullptr){
+            cout << "Ningun archivo inicia con: " << partialKey << "\n";
+            return;
+        }
+        string result = partialKey;
+        resultStartWith.clear();
+        for(int i = 0; i < temp->nodos.size(); i++){
+            if(temp->nodos[i]){
+                startWithUtil(temp->nodos[i], i, result);
+            }
+        }
+
+        cout << "Archivos que inician con: " << partialKey << "\n";
+        for(int i = 0; i < resultStartWith.size(); i++){
+            cout << resultStartWith[i] << extensionFile << "\n";
+        }
     }
 
     void indexer(){

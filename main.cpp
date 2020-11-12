@@ -33,10 +33,12 @@ void testIndex(){
     rootTrie->indexer();        /* read file.txt and insert into trie */
     rootTrie->search("animations-10-assignment-problem");
     rootTrie->search("animations-10-assignment-prob");
-    
+    rootTrie->search("flexbox-13-assignment-solution");
+    // rootTrie->search("Exportador de la semana Pronex_v2");
     // Archivos que inician con "xyz"
     rootTrie->startWith("grid");
     rootTrie->startWith("rid");
+    rootTrie->startWith("animations");
 }
 
 int main(){

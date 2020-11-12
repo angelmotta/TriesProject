@@ -3,7 +3,6 @@ using namespace std;
 
 void test1(){
     vector<string> keys ;
-    //{"hola", "hello","hipo","amigo", "amistad"}
     keys.push_back("hola");
     keys.push_back("hello");
     keys.push_back("hipo");
@@ -12,16 +11,18 @@ void test1(){
     keys.push_back("angel");
     keys.push_back("angelica");
     keys.push_back("antonio");
+    // Insert Operations
     auto root = new TrieNode();
     for(int i=0; i < keys.size(); i++){
         root->insert(keys[i]);
     }
+    // Search testing
     root->search("hola");
     root->search("hipo");
     root->search("hol");
     root->search("agf");
 
-    // Start with
+    // Keys que empieza con 
     root->startWith("ami");
     root->startWith("ang");
     root->startWith("an");
@@ -29,12 +30,16 @@ void test1(){
 
 void testIndex(){
     auto rootTrie = new TrieNode;
-    rootTrie->indexer();
+    rootTrie->indexer();        /* read file.txt and insert into trie */
     rootTrie->search("animations-10-assignment-problem");
     rootTrie->search("animations-10-assignment-prob");
+    
+    // Archivos que inician con "xyz"
+    rootTrie->startWith("grid");
+    rootTrie->startWith("rid");
 }
 
 int main(){
-    test1();
-    // testIndex();
+    // test1();
+    testIndex();
 }

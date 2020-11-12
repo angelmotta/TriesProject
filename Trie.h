@@ -82,7 +82,7 @@ public:
         cout << "** Search keywords start with: " << partialKey << " **\n";
         auto temp = searchUtil(partialKey);
         if(temp == nullptr){
-            cout << "Ningun archivo inicia con: " << partialKey << "\n";
+            cout << "c) Ningun archivo inicia con: " << partialKey << "\n";
             return;
         }
         string result = partialKey;
@@ -93,7 +93,7 @@ public:
             }
         }
 
-        cout << "Archivos que inician con: " << partialKey << "\n";
+        cout << "c) Archivos que inician con: " << partialKey << "\n";
         for(int i = 0; i < resultStartWith.size(); i++){
             cout << resultStartWith[i] << extensionFile << "\n";
         }
@@ -115,7 +115,7 @@ public:
                 filename += line[i];
             }
             reverse(filename.begin(), filename.end());
-            cout << " Insert filename: " << filename << " Start pos: " << posStartLine << '\n';
+            cout << " Insert filename: " << filename << ", Start position in disk file: " << posStartLine << '\n';
             // Insert into Trie Structure
             this->insert(filename, posStartLine);  
             posStartLine = fileList.tellg();

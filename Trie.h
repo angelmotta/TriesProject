@@ -10,11 +10,39 @@ using namespace std;
 
 const int SIZE = 256; 
 const string extensionFile = ".mp4";
+const string dataFile = "dataset.txt";
+
 class TrieNode{
+private:
     vector <TrieNode*> nodos;
     bool isEnd = false; 
     vector<unsigned long> posDisk;
     vector<string> resultStartWith;
+
+    TrieNode* searchUtil(string key){
+        TrieNode* temp = this;
+        for(int i = 0; i < key.size(); i++){
+            int pos = (int)key[i];
+            if(!temp->nodos[pos]){
+                return nullptr;
+            }
+            temp = temp->nodos[pos]; 
+        }
+        return temp;
+    }
+
+    void startWithUtil(TrieNode* tnode, int i, string result){
+        result += (char) i;
+        if(tnode->isEnd){
+            resultStartWith.push_back(result);
+        }
+        for(int i = 0; i < tnode->nodos.size(); i++){
+            if(tnode->nodos[i]){
+                startWithUtil(tnode->nodos[i], i, result);
+            }
+        }
+    }
+
 public:
     TrieNode(): nodos(SIZE,nullptr){};
 
@@ -32,18 +60,6 @@ public:
         temp->posDisk.push_back(position);
     }
     
-    TrieNode* searchUtil(string key){
-        TrieNode* temp = this;
-        for(int i = 0; i < key.size(); i++){
-            int pos = (int)key[i];
-            if(!temp->nodos[pos]){
-                return nullptr;
-            }
-            temp = temp->nodos[pos]; 
-        }
-        return temp;
-    }
-
     void search(string key){
         cout << "** Search: '" << key << "' **\n";
         auto temp = searchUtil(key);
@@ -52,32 +68,20 @@ public:
             string printVeces = (nroVeces > 1) ? "veces.\n" : " vez.\n";
             cout << "a) Archivo repetido: " <<  nroVeces <<  printVeces;
             string buf;
-            fstream fileList("list.txt");
+            fstream fileList(dataFile);
             cout << "b) Ruta de archivos encontrados: \n";
             for(int i = 0; i < temp->posDisk.size(); i++){
                 fileList.seekg(temp->posDisk[i]);
                 getline(fileList, buf);
                 cout << buf << endl;
-                }
-                fileList.close();
             }
-            else{
-                cout << "Not Found!\n";
-            } 
+            fileList.close();
+        }
+        else{
+            cout << "Not Found!\n";
+        } 
     }
     
-    void startWithUtil(TrieNode* tnode, int i, string result){
-        result += (char) i;
-        if(tnode->isEnd){
-            resultStartWith.push_back(result);
-        }
-        for(int i = 0; i < tnode->nodos.size(); i++){
-            if(tnode->nodos[i]){
-                startWithUtil(tnode->nodos[i], i, result);
-            }
-        }
-    }
-
     void startWith(string partialKey){
         cout << "** Search keywords start with: " << partialKey << " **\n";
         auto temp = searchUtil(partialKey);
@@ -102,7 +106,7 @@ public:
     void indexer(){
         cout << "** Indexer **\n";
         //system("find /Users/angelinux/Data -type f -name \"*.mp4\" > list.txt");
-        fstream fileList("list.txt");
+        fstream fileList(dataFile);
         string line;
         string filename;
         unsigned long posStartLine = 0;

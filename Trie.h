@@ -65,7 +65,7 @@ public:
         auto temp = searchUtil(key);
         if (temp != nullptr && temp->isEnd){
             int nroVeces = temp->posDisk.size();
-            string printVeces = (nroVeces > 1) ? "veces.\n" : " vez.\n";
+            string printVeces = (nroVeces > 1) ? " veces.\n" : " vez.\n";
             cout << "a) Archivo repetido: " <<  nroVeces <<  printVeces;
             string buf;
             fstream fileList(dataFile);

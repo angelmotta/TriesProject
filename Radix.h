@@ -25,47 +25,63 @@ public:
         int idx = pos;
         string common; /*comun*/
         string tempString = temp->word;
-
-        while(idx < temp->word.size() && idx < word.size()){
-            if(tempString[idx] == word[idx]){
-                common.push_back(tempString[idx]);
+        int i= 0;
+        while(i < temp->word.size() && idx < word.size()){
+            if(tempString[i++] == word[idx]){
+                common.push_back(word[idx]);
             }
             else{
                 auto newnode = new RadixNode(common); //padre
-                string notCommon = temp->word.substr(common.size(), (temp->word.size() - common.size());
+                string notCommon = temp->word.substr(common.size(), (temp->word.size() - common.size()));
                 temp->word = notCommon;
-                string notCommon2 = word.substr(pos + common.size(), (word.size() - common.size());
-                newnode->nodos[notCommon2[0]] = new RadixNode(notCommon2);
+                string notCommon2 = word.substr(pos + common.size(), (word.size() - common.size()));
+            //    cout << "notCommon: " << notCommon << endl;
+             //   cout << "notCommon2: " << notCommon2 << endl;
+                newnode->nodos[notCommon2[0]] = new RadixNode(notCommon2,true);
                 newnode->nodos[notCommon[0]] = this;
-                newnode->isEnd = true;
+                newnode->isEnd = false;
                 //newnode->nodos[word[++idx]] = new RadixNode();
                 return newnode; // retornano el padre
             }
             idx++;
         }
 
-        if(idx == word.size()-1){
-            auto newnode= new RadixNode(common);
-            this->word = temp->word.substr(common.size(), (temp->word.size() - common.size());
-            newnode->nodos[this->word[0]] = this;
-            newnode->isEnd = true;
-            return newnode;
+        if(idx == word.size()){
+            if(idx == this->word.size()){
+                this->isEnd = true;
+                return this;
+            }
+            else{
+                auto newnode= new RadixNode(common);
+                this->word = temp->word.substr(common.size(), (temp->word.size() - common.size()));
+                newnode->nodos[this->word[0]] = this;
+                newnode->isEnd = true;
+                return newnode;
+            }
         }
 
         if(idx < word.size()){
-            idx++;
-            this->nodos[word[idx]] = insert(word,idx);
+            if(!this->nodos[word[idx]]){
+                string notcommon = word.substr(common.size(),(word.size()-common.size()));
+                this->nodos[word[idx]] = new RadixNode(notcommon,true);
+            }
+            else
+                this->nodos[word[idx]] = this->nodos[word[idx]]->insert(word,idx);
         }
         return this;
     }
 
     bool search(string &w,int pos){
+       // cout << "search this->name: " << this->word << endl;
         int i;
-        for(i = pos; i < this->word.size() && i < w.size() ; i++){
-            if(w[pos] != this->word[pos])
+        int j = 0;
+        for(i = pos; j < this->word.size() && i < w.size() ; i++){
+            if(w[i] != this->word[j++])
                 return false;
         }
-
+        if(j < this->word.size()){
+            return false;
+        }
         if(i >= w.size()){
             if(this->isEnd) return true;
             else return false;
@@ -74,7 +90,6 @@ public:
         if(this->nodos[w[i]])
             return this->nodos[w[i]]->search(w,i);
         else return false;
-
     };
 
 
@@ -113,10 +128,11 @@ public:
     void insert(string &n){
         if(!root)
             root = new RadixNode(n,true);
-        root = root->insert(n, 0);
+        else
+            root = root->insert(n, 0);
     }
-    void search(string n){
-        root->search(n,0);
+    bool search(string n){
+        return  root->search(n,0);
     }
 };
 

@@ -49,6 +49,8 @@ public:
         cout << "total time: " << timeExecution << "\n";
         double avgTime = (double)(timeExecution)/numQueries;
         cout << "\nTrie - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
+        cout << "\nTrie - Memory used: ";
+        rootTrie->getMemSize();
     }
 };
 

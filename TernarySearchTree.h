@@ -143,19 +143,19 @@ public:
         	fileList.close();
     }	
 
-    void Print_n_nodos(){
-		cout << "nodos: "<<n_nodos << endl;
-		cout << "nodos inf: "<<n_nodos_inf << endl;
+    void getMemSize(){
+		cout << "nodos: "<<n_nodos*sizeof(Node) << endl;
+		cout << "nodos inf: "<<n_nodos_inf*sizeof(Info) << endl;
 	}
 };
 
 /*
 
 int main(){
-
 	TernarySearchTree* ts = new TernarySearchTree();
 	ts->indexer("list.txt");
 	ts->Find_n("Slides");
+	ts->getMemSize();
 
 	//auto x2 = ts->Find("^BAD63CD350431BD3D5DD7F6CF8CD9A9C9485C1CA285BCC8B2C^pdefault_distr");
 

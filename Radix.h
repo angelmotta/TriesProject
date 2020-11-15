@@ -14,13 +14,17 @@ class RadixNode{
     vector <RadixNode*> nodos;
     bool isEnd = false;
     string word;
+    vector<long long int> posDisks;
     //vector<char> inserted;
 
 public:
     RadixNode(string &cname):nodos(SIZE,nullptr), word(cname) {};
     RadixNode(string &cname, bool _isEnd):nodos(SIZE,nullptr), word(cname), isEnd(_isEnd) {};
+    RadixNode(string &cname, bool _isEnd, long long int _posDisk):nodos(SIZE,nullptr), word(cname), isEnd(_isEnd) {
+        posDisks.push_back(_posDisk);
+    };
 
-    RadixNode* insert(string word,int pos){
+    RadixNode* insert(string word,int pos, long long int _posDisK){
         RadixNode * temp = this;
         int idx = pos;
         string common; /*comun*/
@@ -37,7 +41,7 @@ public:
                 string notCommon2 = word.substr(pos + common.size(), (word.size() - common.size()));
             //    cout << "notCommon: " << notCommon << endl;
              //   cout << "notCommon2: " << notCommon2 << endl;
-                newnode->nodos[notCommon2[0]] = new RadixNode(notCommon2,true);
+                newnode->nodos[notCommon2[0]] = new RadixNode(notCommon2,true,_posDisK);
                 newnode->nodos[notCommon[0]] = this;
                 newnode->isEnd = false;
                 //newnode->nodos[word[++idx]] = new RadixNode();
@@ -48,6 +52,7 @@ public:
 
         if(idx == word.size()){
             if(idx == this->word.size()){
+                this->posDisks.push_back(_posDisK);
                 this->isEnd = true;
                 return this;
             }
@@ -56,6 +61,7 @@ public:
                 this->word = temp->word.substr(common.size(), (temp->word.size() - common.size()));
                 newnode->nodos[this->word[0]] = this;
                 newnode->isEnd = true;
+                newnode->posDisks.push_back(_posDisK);
                 return newnode;
             }
         }
@@ -63,35 +69,51 @@ public:
         if(idx < word.size()){
             if(!this->nodos[word[idx]]){
                 string notcommon = word.substr(common.size(),(word.size()-common.size()));
-                this->nodos[word[idx]] = new RadixNode(notcommon,true);
+                this->nodos[word[idx]] = new RadixNode(notcommon,true,_posDisK);
             }
             else
-                this->nodos[word[idx]] = this->nodos[word[idx]]->insert(word,idx);
+                this->nodos[word[idx]] = this->nodos[word[idx]]->insert(word,idx,_posDisK);
         }
         return this;
     }
 
-    bool search(string &w,int pos){
-       // cout << "search this->name: " << this->word << endl;
+    RadixNode* search(string &w,int pos){
         int i;
         int j = 0;
         for(i = pos; j < this->word.size() && i < w.size() ; i++){
             if(w[i] != this->word[j++])
-                return false;
+                return nullptr;
         }
         if(j < this->word.size()){
-            return false;
+            return nullptr;
         }
         if(i >= w.size()){
-            if(this->isEnd) return true;
-            else return false;
+            if(this->isEnd) return this;
+            else return nullptr;
         }
 
         if(this->nodos[w[i]])
             return this->nodos[w[i]]->search(w,i);
-        else return false;
+        else return nullptr;
     };
 
+
+};
+
+class RadixTree{
+private:
+    RadixNode* root;
+public:
+    RadixTree(): root{nullptr} {}
+    void insert(string &n, long long int posDisk){
+        if(!root)
+            root = new RadixNode(n,true,posDisk);
+        else
+            root = root->insert(n, 0,posDisk);
+    }
+    bool search(string n){
+        return  root->search(n,0);
+    }
 
     void indexer(){
         cout << "** Indexer **\n";
@@ -116,23 +138,6 @@ public:
         }
 
         fileList.close();
-    }
-
-};
-
-class RadixTree{
-private:
-    RadixNode* root;
-public:
-    RadixTree(): root{nullptr} {}
-    void insert(string &n){
-        if(!root)
-            root = new RadixNode(n,true);
-        else
-            root = root->insert(n, 0);
-    }
-    bool search(string n){
-        return  root->search(n,0);
     }
 };
 

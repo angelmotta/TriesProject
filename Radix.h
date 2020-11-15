@@ -8,6 +8,9 @@
 
 using namespace std;
 
+
+int MEMORIA = 0;
+
 const int SIZEN = 256;
 
 class RadixNode{
@@ -18,10 +21,15 @@ class RadixNode{
     //vector<char> inserted;
 
 public:
-    RadixNode(string &cname):nodos(SIZEN,nullptr), word(cname) {};
-    RadixNode(string &cname, bool _isEnd):nodos(SIZEN,nullptr), word(cname), isEnd(_isEnd) {};
+    RadixNode(string &cname):nodos(SIZEN,nullptr), word(cname) {
+        MEMORIA += sizeof(this);
+    };
+    RadixNode(string &cname, bool _isEnd):nodos(SIZEN,nullptr), word(cname), isEnd(_isEnd) {
+        MEMORIA += sizeof(this);
+    };
     RadixNode(string &cname, bool _isEnd, long long int _posDisk):nodos(SIZEN,nullptr), word(cname), isEnd(_isEnd) {
         posDisks.push_back(_posDisk);
+        MEMORIA += sizeof(this);
     };
 
     int getRepetidos(){
@@ -140,7 +148,7 @@ public:
     void indexer(){
         cout << "** Indexer **\n";
         //system("find /Users/angelinux/Data -type f -name \"*.mp4\" > list.txt");
-        fstream fileList("list.txt");
+        fstream fileList("dataset.txt");
         string line;
         string filename;
         unsigned long posStartLine = 0;
@@ -159,6 +167,10 @@ public:
             posStartLine = fileList.tellg();
         }
         fileList.close();
+    }
+    long int getMemSize(){
+        cout << "Memoria: " << MEMORIA + sizeof(this) << endl;
+        return MEMORIA + sizeof(this);
     }
 };
 

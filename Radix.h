@@ -22,14 +22,14 @@ class RadixNode{
 
 public:
     RadixNode(string &cname):nodos(SIZEN,nullptr), word(cname) {
-        MEMORIA += sizeof(this);
+        MEMORIA += sizeof(*this);
     };
     RadixNode(string &cname, bool _isEnd):nodos(SIZEN,nullptr), word(cname), isEnd(_isEnd) {
-        MEMORIA += sizeof(this);
+        MEMORIA += sizeof(*this);
     };
     RadixNode(string &cname, bool _isEnd, long long int _posDisk):nodos(SIZEN,nullptr), word(cname), isEnd(_isEnd) {
         posDisks.push_back(_posDisk);
-        MEMORIA += sizeof(this);
+        MEMORIA += sizeof(*this);
     };
 
     int getRepetidos(){
@@ -169,7 +169,7 @@ public:
         fileList.close();
     }
     long int getMemSize(){
-        cout << "Memoria: " << MEMORIA + sizeof(this) << " B"<< endl;
+        cout << "Memoria: " << MEMORIA + sizeof(*this) << " B"<< endl;
         return MEMORIA + sizeof(this);
     }
 };

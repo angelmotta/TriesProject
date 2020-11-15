@@ -1,6 +1,7 @@
 #ifndef TESTER_H
 #define TESTER_H
 #include "Trie.h"
+#include "Radix.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -32,6 +33,7 @@ public:
     void trieTester(){
         auto rootTrie = new TrieNode;
         rootTrie->indexer();        /* read dataset.txt, Create Trie and insert */
+        
         // Execute 100 queries
         int timeExecution = 0;
         int numQueries = 0;
@@ -51,6 +53,29 @@ public:
         cout << "\nTrie - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
         cout << "\nTrie - Memory used: ";
         rootTrie->getMemSize();
+    }
+
+    void radixTester(){
+        // Radix Tree
+        cout << "\n Test Radix Tree **\n ";
+        RadixTree radixTree("dataset.txt");
+        radixTree.indexer();
+
+        // Execute 100 queries
+        int timeExecution = 0;
+        int numQueries = 0;
+        for(auto filename : keysQueries){
+            auto t1 = std::chrono::high_resolution_clock::now();
+            radixTree.search(filename);
+            numQueries++;
+            auto t2 = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+            timeExecution += duration;
+            cout << "elapsed time: " << duration << " microseconds\n";
+        }
+        cout << "total time: " << timeExecution << "\n";
+        double avgTime = (double)(timeExecution)/numQueries;
+        cout << "\nRadix Tree - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
     }
 };
 

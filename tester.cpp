@@ -48,7 +48,7 @@ public:
             cout << "elapsed time: " << duration << " microseconds\n";
         }
         
-        cout << "total time: " << timeExecution << "\n";
+        // cout << "total time: " << timeExecution << "\n";
         double avgTime = (double)(timeExecution)/numQueries;
         cout << "\nTrie - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
         cout << "\nTrie - Memory used: ";
@@ -73,7 +73,7 @@ public:
             timeExecution += duration;
             cout << "elapsed time: " << duration << " microseconds\n";
         }
-        cout << "total time: " << timeExecution << "\n";
+        // cout << "total time: " << timeExecution << "\n";
         double avgTime = (double)(timeExecution)/numQueries;
         cout << "\nRadix Tree - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
     }

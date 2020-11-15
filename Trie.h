@@ -11,13 +11,13 @@ using namespace std;
 const int SIZE = 256; 
 const string extensionFile = ".mp4";
 const string dataFile = "dataset.txt";
+vector<string> resultStartWith;
 
 class TrieNode{
 private:
     vector <TrieNode*> nodos;
     bool isEnd = false; 
     vector<unsigned long> posDisk;
-    vector<string> resultStartWith;
 
     TrieNode* searchUtil(string key){
         TrieNode* temp = this;

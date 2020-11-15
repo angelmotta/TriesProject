@@ -45,7 +45,7 @@ void testIndex(){
 
 int main(){
     // test1();
-    //testIndex();
-    Tester testerObj;
-    testerObj.trieTester();   /* Test Trie  structure with 100 queries */
+    testIndex();
+    // Tester testerObj;
+    // testerObj.trieTester();   /* Test Trie  structure with 100 queries */
 }

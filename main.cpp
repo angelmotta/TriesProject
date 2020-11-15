@@ -48,4 +48,5 @@ int main(){
     //testIndex();
     Tester testerObj;
     testerObj.trieTester();   /* Test Trie  structure with 100 queries */
+    //testerObj.radixTester();
 }

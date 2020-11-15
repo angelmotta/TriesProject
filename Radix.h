@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int SIZE = 256;
+const int SIZEN = 256;
 
 class RadixNode{
     vector <RadixNode*> nodos;
@@ -18,9 +18,9 @@ class RadixNode{
     //vector<char> inserted;
 
 public:
-    RadixNode(string &cname):nodos(SIZE,nullptr), word(cname) {};
-    RadixNode(string &cname, bool _isEnd):nodos(SIZE,nullptr), word(cname), isEnd(_isEnd) {};
-    RadixNode(string &cname, bool _isEnd, long long int _posDisk):nodos(SIZE,nullptr), word(cname), isEnd(_isEnd) {
+    RadixNode(string &cname):nodos(SIZEN,nullptr), word(cname) {};
+    RadixNode(string &cname, bool _isEnd):nodos(SIZEN,nullptr), word(cname), isEnd(_isEnd) {};
+    RadixNode(string &cname, bool _isEnd, long long int _posDisk):nodos(SIZEN,nullptr), word(cname), isEnd(_isEnd) {
         posDisks.push_back(_posDisk);
     };
 

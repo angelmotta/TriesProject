@@ -130,7 +130,7 @@ public:
         if(!result)
             cout << "Not found" << endl;
         else {
-            
+            result->read(filename);
         }
         return result;
     }

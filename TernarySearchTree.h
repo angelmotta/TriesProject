@@ -9,6 +9,7 @@
 
 using namespace std;
 
+long long n_nodos= 0, n_nodos_inf = 0;
 
 class Info{
 public:
@@ -22,6 +23,7 @@ public:
 	Info* data;
 	vector<string> paths;
 	Node(char l){
+		++n_nodos;
 		letter = l;
 		children[0] = nullptr;
 		children[1] = nullptr;
@@ -77,6 +79,7 @@ public:
 			root = new Node(key[0]);
 		}
 		root->Insert(0, key.size(), key, inf);
+		++n_nodos_inf;
 	}
 	
 	Node* Find(string key){
@@ -96,13 +99,24 @@ public:
 				++i;
 			}
 		}
-		if(aux != nullptr || i != n-1){
+		if( i != n-1){
 			cout << "not found"<<endl;
 			return nullptr;
+		}
+		for(auto &v:aux->paths){
+			cout << v << endl;
 		}
 		return aux;
 	}
 
+	void Find_n(string key){
+		auto x = Find(key);
+		if(x){
+			for(auto &v:x->data->paths){
+				cout << v << endl;
+			}
+		}
+	}
 
 	void indexer(string name_f){
         //system("find /Users/angelinux/Data -type f -name \"*.mp4\" > list.txt");
@@ -125,10 +139,14 @@ public:
             Insert(filename, posStartLine);  
             posStartLine = fileList.tellg();
         }
-        
-        fileList.close();
-    }
+    	    
+        	fileList.close();
+    }	
 
+    void Print_n_nodos(){
+		cout << "nodos: "<<n_nodos << endl;
+		cout << "nodos inf: "<<n_nodos_inf << endl;
+	}
 };
 
 /*
@@ -136,13 +154,9 @@ public:
 int main(){
 
 	TernarySearchTree* ts = new TernarySearchTree();
-	ts->indexer("dataset2.txt");
-	auto x = ts->Find("Slides");
-	if(x){
-		for(auto &v:x->data->paths){
-			cout << v << endl;
-		}
-	}
+	ts->indexer("list.txt");
+	ts->Find_n("Slides");
+
 	//auto x2 = ts->Find("^BAD63CD350431BD3D5DD7F6CF8CD9A9C9485C1CA285BCC8B2C^pdefault_distr");
 
 	return 0;

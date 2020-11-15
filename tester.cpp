@@ -85,10 +85,9 @@ public:
         cout << "\n Test Ternary Tree **\n ";
 
         TernarySearchTree* ts = new TernarySearchTree();
-	    ts->indexer("dataset.txt");
+	    ts->indexer("dataset2.txt");
         
         // Execute 100 queries
-        /*
         int timeExecution = 0;
         int numQueries = 0;
         for(auto filename : keysQueries){
@@ -102,8 +101,7 @@ public:
         }
         // cout << "total time: " << timeExecution << "\n";
         double avgTime = (double)(timeExecution)/numQueries;
-        cout << "\nRadix Tree - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
-        */
+        cout << "\nTernary Tree - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
     }
 
 };

@@ -31,6 +31,7 @@ public:
     void read(string filename){
         ifstream file(filename,ios::binary);
         string data;
+        cout << "Archivos encontrados: " << endl;
         for(int i  = 0; i < posDisks.size() ; i++){
             file.seekg(posDisks[i]);
             getline(file,data);
@@ -126,6 +127,7 @@ public:
             root = root->insert(n, 0,posDisk);
     }
     RadixNode* search(string n){
+        cout << "SEARCH: " << n << endl;
         auto result = root->search(n,0);
         if(!result)
             cout << "Not found" << endl;

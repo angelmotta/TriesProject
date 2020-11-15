@@ -11,13 +11,14 @@ using namespace std;
 const int SIZE = 256; 
 const string extensionFile = ".mp4";
 const string dataFile = "dataset.txt";
+vector<string> resultStartWith;
+int memSize = 0;
 
 class TrieNode{
 private:
     vector <TrieNode*> nodos;
     bool isEnd = false; 
     vector<unsigned long> posDisk;
-    vector<string> resultStartWith;
 
     TrieNode* searchUtil(string key){
         TrieNode* temp = this;
@@ -53,6 +54,7 @@ public:
             pos = (int)word[i] ;
             if(!temp->nodos[pos]){
                 temp->nodos[pos] = new TrieNode;
+                memSize += sizeof(*(temp->nodos[pos]));
             }
             temp = temp->nodos[pos];
         }
@@ -128,6 +130,9 @@ public:
         fileList.close();
     }
 
+    void getMemSize(){
+        cout << "Memory: " << memSize << " B" << "\n";
+    }
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define TESTER_H
 #include "Trie.h"
 #include "Radix.h"
+#include "TernarySearchTree.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -79,6 +80,32 @@ public:
 
         radixTree.getMemSize();
     }
+
+    void ternaryTester(){
+        cout << "\n Test Ternary Tree **\n ";
+
+        TernarySearchTree* ts = new TernarySearchTree();
+	    ts->indexer("dataset.txt");
+        
+        // Execute 100 queries
+        /*
+        int timeExecution = 0;
+        int numQueries = 0;
+        for(auto filename : keysQueries){
+            auto t1 = std::chrono::high_resolution_clock::now();
+            ts->Find(filename);
+            numQueries++;
+            auto t2 = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+            timeExecution += duration;
+            cout << "elapsed time: " << duration << " microseconds\n";
+        }
+        // cout << "total time: " << timeExecution << "\n";
+        double avgTime = (double)(timeExecution)/numQueries;
+        cout << "\nRadix Tree - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
+        */
+    }
+
 };
 
 #endif

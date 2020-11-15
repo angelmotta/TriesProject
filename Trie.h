@@ -131,7 +131,7 @@ public:
     }
 
     void getMemSize(){
-        cout << "Memory: " << memSize << " B" << "\n";
+        cout << memSize << " B" << "\n";
     }
 };
 

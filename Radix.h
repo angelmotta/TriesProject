@@ -140,7 +140,7 @@ public:
     void indexer(){
         cout << "** Indexer **\n";
         //system("find /Users/angelinux/Data -type f -name \"*.mp4\" > list.txt");
-        fstream fileList("list.txt");
+        fstream fileList("dataset.txt");
         string line;
         string filename;
         unsigned long posStartLine = 0;

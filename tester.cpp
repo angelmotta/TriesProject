@@ -48,7 +48,7 @@ public:
             cout << "elapsed time: " << duration << " microseconds\n";
         }
         
-        cout << "total time: " << timeExecution << "\n";
+        // cout << "total time: " << timeExecution << "\n";
         double avgTime = (double)(timeExecution)/numQueries;
         cout << "\nTrie - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
         cout << "\nTrie - Memory used: ";
@@ -58,7 +58,7 @@ public:
     void radixTester(){
         // Radix Tree
         cout << "\n Test Radix Tree **\n ";
-        RadixTree radixTree("list.txt");
+        RadixTree radixTree("dataset.txt");
         radixTree.indexer();
 
         // Execute 100 queries
@@ -73,7 +73,7 @@ public:
             timeExecution += duration;
             cout << "elapsed time: " << duration << " microseconds\n";
         }
-        cout << "total time: " << timeExecution << "\n";
+        // cout << "total time: " << timeExecution << "\n";
         double avgTime = (double)(timeExecution)/numQueries;
         cout << "\nRadix Tree - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
     }

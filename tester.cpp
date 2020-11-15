@@ -58,7 +58,7 @@ public:
     void radixTester(){
         // Radix Tree
         cout << "\n Test Radix Tree **\n ";
-        RadixTree radixTree("dataset.txt");
+        RadixTree radixTree("list.txt");
         radixTree.indexer();
 
         // Execute 100 queries

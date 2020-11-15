@@ -24,6 +24,21 @@ public:
         posDisks.push_back(_posDisk);
     };
 
+    int getRepetidos(){
+        return posDisks.size();
+    }
+
+    void read(string filename){
+        ifstream file(filename,ios::binary);
+        string data;
+        for(int i  = 0; i < posDisks.size() ; i++){
+            file.seekg(posDisks[i]);
+            getline(file,data);
+            cout << data << endl;
+        }
+        file.close();
+    }
+
     RadixNode* insert(string word,int pos, long long int _posDisK){
         RadixNode * temp = this;
         int idx = pos;
@@ -39,12 +54,9 @@ public:
                 string notCommon = temp->word.substr(common.size(), (temp->word.size() - common.size()));
                 temp->word = notCommon;
                 string notCommon2 = word.substr(pos + common.size(), (word.size() - common.size()));
-            //    cout << "notCommon: " << notCommon << endl;
-             //   cout << "notCommon2: " << notCommon2 << endl;
                 newnode->nodos[notCommon2[0]] = new RadixNode(notCommon2,true,_posDisK);
                 newnode->nodos[notCommon[0]] = this;
                 newnode->isEnd = false;
-                //newnode->nodos[word[++idx]] = new RadixNode();
                 return newnode; // retornano el padre
             }
             idx++;
@@ -77,6 +89,7 @@ public:
         return this;
     }
 
+
     RadixNode* search(string &w,int pos){
         int i;
         int j = 0;
@@ -95,24 +108,31 @@ public:
         if(this->nodos[w[i]])
             return this->nodos[w[i]]->search(w,i);
         else return nullptr;
+
     };
-
-
 };
 
 class RadixTree{
 private:
     RadixNode* root;
+    string filename;    
 public:
-    RadixTree(): root{nullptr} {}
+    RadixTree(string _filename): filename(_filename), root{nullptr} {}
+
     void insert(string &n, long long int posDisk){
         if(!root)
             root = new RadixNode(n,true,posDisk);
         else
             root = root->insert(n, 0,posDisk);
     }
-    bool search(string n){
-        return  root->search(n,0);
+    RadixNode* search(string n){
+        auto result = root->search(n,0);
+        if(!result)
+            cout << "Not found" << endl;
+        else {
+            
+        }
+        return result;
     }
 
     void indexer(){
@@ -136,7 +156,6 @@ public:
             this->insert(filename, posStartLine);
             posStartLine = fileList.tellg();
         }
-
         fileList.close();
     }
 };

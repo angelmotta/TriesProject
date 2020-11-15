@@ -169,7 +169,7 @@ public:
         fileList.close();
     }
     long int getMemSize(){
-        cout << "Memoria: " << MEMORIA + sizeof(this) << endl;
+        cout << "Memoria: " << MEMORIA + sizeof(this) << " B"<< endl;
         return MEMORIA + sizeof(this);
     }
 };

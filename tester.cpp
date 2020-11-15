@@ -76,6 +76,8 @@ public:
         // cout << "total time: " << timeExecution << "\n";
         double avgTime = (double)(timeExecution)/numQueries;
         cout << "\nRadix Tree - Tiempo promedio de consulta: " << avgTime << " microseconds\n";
+
+        radixTree.getMemSize();
     }
 };
 

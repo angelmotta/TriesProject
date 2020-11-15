@@ -96,15 +96,10 @@ public:
 				++i;
 			}
 		}
-		if(i != n-1){
+		if(aux != nullptr || i != n-1){
 			cout << "not found"<<endl;
 			return nullptr;
 		}
-
-		for(auto &v:aux->data->paths){
-			cout << v << "\t";
-		}
-		cout << endl;
 		return aux;
 	}
 
@@ -136,10 +131,12 @@ public:
 
 };
 
+/*
+
 int main(){
 
 	TernarySearchTree* ts = new TernarySearchTree();
-	ts->indexer("dataset.txt");
+	ts->indexer("dataset2.txt");
 	auto x = ts->Find("Slides");
 	if(x){
 		for(auto &v:x->data->paths){
@@ -150,3 +147,4 @@ int main(){
 
 	return 0;
 }
+*/

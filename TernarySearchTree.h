@@ -144,8 +144,7 @@ public:
     }	
 
     void getMemSize(){
-		cout << "nodos: "<<n_nodos*sizeof(Node) << endl;
-		cout << "nodos inf: "<<n_nodos_inf*sizeof(Info) << endl;
+		cout << "Memoria Usada "<< 2.5*(n_nodos*sizeof(Node) + n_nodos_inf*sizeof(Info)) << " B"<< endl;
 	}
 };
 
